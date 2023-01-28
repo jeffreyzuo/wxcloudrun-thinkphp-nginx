@@ -15,3 +15,8 @@ Route::get('/api/count', 'index/getCount');
 
 // 更新计数，自增或者清零
 Route::post('/api/count', 'index/updateCount');
+
+//接收微信服务管家转发过来的消息
+Route::get('/api/msg_distribute','index/msgDistribue');
+
+

@@ -17,6 +17,7 @@ use app\model\Counters;
 use think\response\Html;
 use think\response\Json;
 use think\facade\Log;
+use think\facade\Request;
 
 class Index
 {
@@ -105,5 +106,12 @@ class Index
             Log::write('updateCount rsp: '.json_encode($res));
             return json($res);
         }
+    }
+
+    
+    public function msgDistribute() {
+        $params = Request::param();
+        Log::write('msgDistribute req:'.json_encode($params));
+        return json($params);
     }
 }
