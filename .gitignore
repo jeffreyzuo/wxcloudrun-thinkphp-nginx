@@ -1,8 +1,5 @@
 docker-compose.yml
 Dockerfile.development
 .cloudbase/container/debug.json
-.idea/.gitignore
-.idea/modules.xml
-.idea/php.xml
-.idea/vcs.xml
-.idea/wxcloudrun-thinkphp-nginx.iml
+.idea
+.vscode
