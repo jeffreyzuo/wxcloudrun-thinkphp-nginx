@@ -23,13 +23,13 @@ class Index
 {
 
     /**
-     * 主页静态页面
-     * @return Html
+     * 主页
      */
-    public function index(): Html
+    public function index()
     {
         # html路径: ../view/index.html
-        return response(file_get_contents(dirname(dirname(__FILE__)).'/view/index.html'));
+        return "Hello world";
+        //return response(file_get_contents(dirname(dirname(__FILE__)).'/view/index.html'));
     }
 
 
@@ -106,12 +106,5 @@ class Index
             Log::write('updateCount rsp: '.json_encode($res));
             return json($res);
         }
-    }
-
-    
-    public function msgDistribute() {
-        $params = Request::param();
-        Log::write('msgDistribute req:'.json_encode($params));
-        return "done!";
     }
 }

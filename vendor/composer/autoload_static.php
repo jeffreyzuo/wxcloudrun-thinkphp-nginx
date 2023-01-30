@@ -53,9 +53,9 @@ class ComposerStaticInit19c02ca2469af2a5512f466a2c8179b7
         ),
         'think\\' => 
         array (
-            0 => __DIR__ . '/..' . '/topthink/think-helper/src',
-            1 => __DIR__ . '/..' . '/topthink/think-orm/src',
-            2 => __DIR__ . '/..' . '/topthink/framework/src/think',
+            0 => __DIR__ . '/..' . '/topthink/framework/src/think',
+            1 => __DIR__ . '/..' . '/topthink/think-helper/src',
+            2 => __DIR__ . '/..' . '/topthink/think-orm/src',
         ),
         'app\\' => 
         array (
@@ -104,7 +104,7 @@ class ComposerStaticInit19c02ca2469af2a5512f466a2c8179b7
     );
 
     public static $fallbackDirsPsr0 = array (
-        0 => __DIR__ . '/../..' . '/extend',
+        0 => __DIR__ . '/../..' . '/app/extend',
     );
 
     public static $classMap = array (
