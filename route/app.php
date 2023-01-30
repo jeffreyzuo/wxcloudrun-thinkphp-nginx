@@ -17,6 +17,7 @@ Route::get('/api/count', 'index/getCount');
 Route::post('/api/count', 'index/updateCount');
 
 //接收微信服务管家转发过来的消息
-Route::get('/api/msg_distribute','index/msgDistribute');
+Route::post('/api/msg_distribute','index/msgDistribute');
+
 
 
