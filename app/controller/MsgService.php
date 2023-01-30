@@ -4,11 +4,16 @@ namespace app\controller;
 use think\facade\Log;
 use think\facade\Request;
 use app\extend\MyExtend;
+use think\facade\Cache;
 class MsgService {
     const SUCCESS = "success";
     public function text($appid) {
         $params  = Request::param();
-        Log::write('MsgService appid:'. $appid . ',msg type:'. 'text' . ',source:' .json_encode($params));
+        Cache::store('redis')->set('param',$params,300);
+        Log::write('MsgService store to redis done');
+        $value = Cache::store('redis')->get('param');
+
+        Log::write('MsgService appid:'. $appid . ',msg type:'. 'text' . ',source:' .json_encode($value));
         return self::SUCCESS;
     }
 
