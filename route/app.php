@@ -19,6 +19,5 @@ Route::post('/api/count', 'index/updateCount');
 //接收微信服务管家转发过来的消息
 Route::post('/api/msg_service/<appid>/<type>','msgService/process/<appid>/<type>');
 
-Route::get('/api/msg_service/<appid>/<type>','msgService/process/<appid>/<type>');
 
 

@@ -6,9 +6,10 @@ use think\facade\Request;
 
 class MsgService {
     const SUCCESS = "success";
-    public function process($appid,$type) {
-        $params  = Request::param();
-        Log::write('MsgService appid:'. $appid . ',type:'.$type . ',source:' .json_encode($params));
+    public function process(Request $request,$appid,$type) {
+        //$params  = Request::param();
+        $params = $request->all();
+        Log::write('MsgService appid:'. $appid . ',msg type:'.$type . ',source:' .json_encode($params));
         return self::SUCCESS;
     }
 
