@@ -112,6 +112,6 @@ class Index
     public function msgDistribute() {
         $params = Request::param();
         Log::write('msgDistribute req:'.json_encode($params));
-        return json($params);
+        return "done!";
     }
 }
