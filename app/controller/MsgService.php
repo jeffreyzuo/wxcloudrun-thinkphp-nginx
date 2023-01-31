@@ -4,7 +4,7 @@ namespace app\controller;
 use think\facade\Log;
 use think\facade\Request;
 use app\extend\MyExtend;
-use think\facade\Cache;
+use app\extend\support\WxHelper;
 class MsgService {
     const SUCCESS = "success";
     public function text($appid) {
@@ -17,15 +17,12 @@ class MsgService {
         //$value = Cache::store('redis')->get('param');
 //{"ToUserName":"gh_55a1a8fa07b4","FromUserName":"ojcLx6LEX7RchYEKU0m6Xa1oOwmA","CreateTime":1675078376,"MsgType":"text","Content":"\u5927\u5bb6\u597d","MsgId":23981356077141011,"appid":"wx8c6c5bc9d58d3b80"}
         Log::write('MsgService appid:'. $appid . ',msg type:'. 'text' . ',from user:' .$fromUserName);
-
-        $xml = "<xml>
-  <ToUserName><![CDATA[{$fromUserName}]]></ToUserName>
-  <FromUserName><![CDATA[{$toUserName}]]></FromUserName>
-  <CreateTime>{$time}</CreateTime>
-  <MsgType><![CDATA[text]]></MsgType>
-  <Content><![CDATA[收到]]></Content>
-</xml>";
-        return xml($xml);
+        $wxHelper = new WxHelper();
+        $ret = $wxHelper->sendTextCustomerMessage($fromUserName,"欢迎留言！");
+        if(!empty($ret)) {
+            Log::write('MsgService sendTextCustomerMessage:'.json_encode($ret));
+        }
+        return self::SUCCESS;
     }
 
     public function image($appid) {

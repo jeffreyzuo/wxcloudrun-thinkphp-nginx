@@ -27,6 +27,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.tencent.com/g' /etc/apk/repositorie
     php7-curl \
     php7-pecl-redis \
     php7-fileinfo \
+    php7-xml \
     nginx \
     redis \
     && rm -f /var/cache/apk/*
