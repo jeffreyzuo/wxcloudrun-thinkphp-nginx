@@ -45,6 +45,8 @@ class HttpClient
     }
 
     public function request($method,$url,$options) {
+        Log::info("request:" . $url . ",with:". json_encode($options));
+        $options = $this->fixJsonIssue($options);
         $client = $this->getClient($this->base_uri);
         try {
            return $client->request($method,$url,$options);
@@ -53,6 +55,7 @@ class HttpClient
             return false;
         } catch (GuzzleException $e) {
             Log::error($e);
+
             return false;
         }
     }
@@ -65,6 +68,28 @@ class HttpClient
         }
         Log::error("requestExtractBody bad request:".$url);
         return false;
+    }
+
+    /**
+     * @param array $options
+     *
+     * @return array
+     */
+    protected function fixJsonIssue(array $options): array
+    {
+        if (isset($options['json']) && is_array($options['json'])) {
+            $options['headers'] = array_merge($options['headers'] ?? [], ['Content-Type' => 'application/json']);
+
+            if (empty($options['json'])) {
+                $options['body'] = json_encode($options['json'], JSON_FORCE_OBJECT);
+            } else {
+                $options['body'] = json_encode($options['json'], JSON_UNESCAPED_UNICODE);
+            }
+
+            unset($options['json']);
+        }
+
+        return $options;
     }
 
 }
