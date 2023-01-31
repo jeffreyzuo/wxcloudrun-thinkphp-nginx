@@ -3,5 +3,3 @@ Dockerfile.development
 .cloudbase/container/debug.json
 .idea
 .vscode
-/vendor/
-/vendor/
