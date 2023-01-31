@@ -91,9 +91,23 @@ abstract class OneToOne extends Relation
         $query->via($joinAlias);
 
         if ($this instanceof BelongsTo) {
-            $joinOn = $name . '.' . $this->foreignKey . '=' . $joinAlias . '.' . $this->localKey;
+
+            $foreignKeyExp = $this->foreignKey;
+
+            if (strpos($foreignKeyExp, '.') === false) {
+                $foreignKeyExp = $name . '.' . $this->foreignKey;
+            }
+
+            $joinOn = $foreignKeyExp . '=' . $joinAlias . '.' . $this->localKey;
         } else {
-            $joinOn = $name . '.' . $this->localKey . '=' . $joinAlias . '.' . $this->foreignKey;
+            
+            $foreignKeyExp = $this->foreignKey;
+
+            if (strpos($foreignKeyExp, '.') === false) {
+                $foreignKeyExp = $joinAlias . '.' . $this->foreignKey;
+            }
+
+            $joinOn = $name . '.' . $this->localKey . '=' . $foreignKeyExp;
         }
 
         if ($closure) {
@@ -187,16 +201,28 @@ abstract class OneToOne extends Relation
      */
     public function save($data, bool $replace = true)
     {
+        $model = $this->make();
+
+        return $model->replace($replace)->save($data) ? $model : false;
+    }
+
+    /**
+     * 创建关联对象实例
+     * @param array|Model $data
+     * @return Model
+     */
+    public function make($data = []): Model
+    {
         if ($data instanceof Model) {
             $data = $data->getData();
         }
 
-        $model = new $this->model;
         // 保存关联表数据
         $data[$this->foreignKey] = $this->parent->{$this->localKey};
 
-        return $model->replace($replace)->save($data) ? $model : false;
+        return new $this->model($data);
     }
+
 
     /**
      * 绑定关联表的属性到父模型属性
