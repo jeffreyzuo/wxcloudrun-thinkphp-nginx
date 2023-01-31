@@ -59,9 +59,9 @@ class HttpClient
      * @param array $header 请求头 说明：应这样格式设置请求头才生效 ['Authorization:0f5fc4730e21048eae936e2eb99de548']
      * @param bool $isJson 是否为json请求，默认为Content-Type:application/x-www-form-urlencoded
      * @param int $timeOut 超时时间 单位秒，0则永不超时
-     * @return mixed
+     * @return string|false
      */
-    function curlRequest(string $url, bool $isPost = true, array $data = [], array $header = [], bool $isJson = false, int $timeOut = 0): array
+    function curlRequest(string $url, bool $isPost = true, array $data = [], array $header = [], bool $isJson = false, int $timeOut = 0)
     {
         if (empty($url)) {
             return false;
