@@ -40,14 +40,19 @@ class HttpClient
         return $this->requestExtractBody('POST',$uri,['form_params'=>$form_fields]);
     }
 
-    public function jsonPostExtractBody($uri,$json_array) {
-        return $this->requestExtractBody('POST',$uri,['json'=>$json_array]);
+    public function jsonPostExtractBody($uri,$json_array,$query=[],$headers=[]) {
+        return $this->requestExtractBody('POST',$uri,['json'=>$json_array,'query'=>$query,'headers'=>$headers]);
     }
 
     public function request($method,$url,$options) {
         Log::info("request:" . $url . ",with:". json_encode($options));
         $options = $this->fixJsonIssue($options);
-        $client = $this->getClient($this->base_uri);
+        $client = new Client();
+        if(!empty($this->base_uri)) {
+            if(empty($options['base_uri'])) {
+                $options['base_uri'] = $this->base_uri;
+            }
+        }
         try {
            return $client->request($method,$url,$options);
         } catch (RequestException $exception) {
